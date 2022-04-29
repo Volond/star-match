@@ -1,0 +1,5 @@
+<!-- [ngStyle]="{ 'backgroundColor': colors[status]}" -->
+<button className="number" (click)="numberClicked()" [ngStyle]="{ 'backgroundColor': colors[currentStatus]}"
+  currentStatus="numberStatusFunction(numberValue)">
+  {{numberValue}}
+</button>

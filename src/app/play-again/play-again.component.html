@@ -1,0 +1,6 @@
+<div class="game-done">
+  <div class="message" [ngStyle]="{ 'color': (gameStatus === 'lost' ? 'red' : 'green') }">
+    {{gameStatus === 'lost' ? 'Game Over' : 'Nice'}}
+  </div>
+  <button>Play Again</button>
+</div>

@@ -1,0 +1,16 @@
+<div class="game">
+  <div class="help">
+      Pick 1 or more numbers that sum to the number of stars
+  </div>
+  <div class="body">
+      <div class="left">
+          <app-play-again *ngIf="!gameActive" [gameStatus]="gameStatus"></app-play-again>
+          <app-stars-display *ngIf="gameActive" [stars]="stars"></app-stars-display>
+      </div>
+      <div class="right">
+         <app-play-number *ngFor="let num of initialNumbers" [numberSelectedFunction]="selectNumber"
+         [numberValue]="num"></app-play-number>
+      </div>
+  </div>
+  <!-- <div class="timer">Time Remaining: {secondsLeft}</div> -->
+  </div>
