@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 export class PlayNumber {
   number: number;
@@ -26,20 +27,37 @@ export class PlayNumberComponent implements OnInit {
     candidate: 'deepskyblue',
   };
 
+  resetSubscription!: Subscription;
+  numberUsedSubscription!: Subscription;
+
   @Input() numberValue: number = 0;
   @Input() numberSelectedFunction!: (playNumber: PlayNumber) => PlayNumber;
-  // @Input() numberStatusFunction!: (number: number) => string;
+
+  @Input() resetEvent!: Observable<void>;
+  @Input() numberUsedEvent!: Observable<PlayNumber>;
+
   @Output() clickEvent = new EventEmitter<PlayNumber>();
 
   constructor() { }
 
   ngOnInit(): void {
-
+    this.resetSubscription = this.resetEvent.subscribe(() => this.resetState());
+    this.numberUsedSubscription = this.numberUsedEvent.subscribe((num) => this.numberUsed(num));
   }
 
   numberClicked() {
     var updatedPlayNumber = this.numberSelectedFunction(new PlayNumber(this.numberValue, this.currentStatus));
     this.numberValue = updatedPlayNumber.number;
     this.currentStatus = updatedPlayNumber.status;
+  }
+
+  resetState() {
+    this.currentStatus = 'available';
+  }
+
+  numberUsed(num: PlayNumber) {
+    if (num.number === this.numberValue) {
+      this.currentStatus = 'used';
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-play-again',
@@ -8,10 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PlayAgainComponent implements OnInit {
 
   @Input() gameStatus: string = '';
+  @Output() playAgainEvent = new EventEmitter<boolean>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  playAgain() {
+    this.playAgainEvent.emit(true);
   }
 
 }
